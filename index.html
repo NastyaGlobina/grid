@@ -348,6 +348,10 @@
         }
 
         @media (max-width: 640px) {
+            body {
+                 padding-bottom:120px;
+            }   
+                
             .h1 {
                 font-size: 25px;
             }
@@ -413,20 +417,20 @@
                 <button class="btn-toggle" onclick="switchTheme('grey')"> Backendless Theme</button>
             </div>
 
-            <select class="theme-select" onchange="onSelect(this)">
+            <select class="theme-select" onchange="onChange(this)">
                 <option value="light">Light Theme</option>
                 <option value="dark">Dark Theme</option>
                 <option value="grey">Backendless Theme</option>
             </select>
 
             <div class="radio-group">
-                <input type="radio" id="light" name="theme" value="light" checked onclick="onRadio(this)">
+                <input type="radio" id="light" name="theme" value="light" checked onclick="onChange(this)">
                 <label for="light">Light Theme</label>
 
-                <input type="radio" id="dark" name="theme" value="dark" onclick="onRadio(this)">
+                <input type="radio" id="dark" name="theme" value="dark" onclick="onChange(this)">
                 <label for="dark">Dark Theme</label>
 
-                <input type="radio" id="grey" name="theme" value="grey" onclick="onRadio(this)">
+                <input type="radio" id="grey" name="theme" value="grey" onclick="onChange(this)">
                 <label for="grey">Grey Theme</label>
             </div>
 
@@ -545,32 +549,29 @@
         }
     }
 
-    function onRadio(that) {
+    function onChange(that) {
         switchTheme(that.value);
 
     }
 
-
-    function onSelect(that) {
-        switchTheme(that.value);
-    }
 
 
     function onClick() {
-        console.log("click");
         document.body.classList.add("show-modal");
+    }
+    
+    function closeModal() {
+        document.body.classList.remove("show-modal")
     }
 
     function init() {
         document.querySelectorAll(".grid > div").forEach(function (x) {
             x.addEventListener("click", onClick)
         });
-        document.querySelector(".modal .close").addEventListener("click", function () {
-            document.body.classList.remove("show-modal")
-        });
+        document.querySelector(".modal .close").addEventListener("click", closeModal);
         document.body.addEventListener("click", function (e) {
             if (e.target && e.target.classList.contains("modal"))
-                document.body.classList.remove("show-modal")
+               closeModal();
         });
 
         switchTheme("light")
